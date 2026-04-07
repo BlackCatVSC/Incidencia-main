@@ -37,7 +37,12 @@ public class IncidenciaService {
         return incidenciaRepository.existsById(id);
     }
 
-    //Este metodo actualiza la incidencia que buscamos por su ID.
+    // Método para actualizar una incidencia existente en la base de datos
+    // Busca la incidencia actual usando el id recibido
+    // Si no existe, el método buscarPorId probablemente lanzara una excepción
+    // Verifica que la incidencia encontrada no sea null
+    // Actualiza los campos de la incidencia existente
+    //con los datos de la nueva incidencia recibida
     public Incidencia actualizar(Long id, Incidencia nuevaIncidencia){
         Incidencia incidenciaExistente = buscarPorId(id);
 
@@ -48,10 +53,12 @@ public class IncidenciaService {
             incidenciaExistente.setPrioridad(nuevaIncidencia.getPrioridad());
             incidenciaExistente.setUsuarioReportante(nuevaIncidencia.getUsuarioReportante());
 
-
+            // Guarda los cambios en la base de datos
+            // save() actualiza porque el objeto ya tiene un ID existente
 
             return incidenciaRepository.save(incidenciaExistente);
         }
+        // Si no se encontró la incidencia, retorna null
         return null;
     }
 
