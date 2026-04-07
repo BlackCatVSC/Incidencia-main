@@ -21,12 +21,13 @@ public class IncidenciaService {
     }
 
     //Este metodo Busca la incidencia por id.
-    //Si existe, la va a devolver, si no va a lanzar un error sumado con el mensaje "Incidencia no encontrada".
+    //Si existe, la va a devolver, si no va a lanzar "supuestamente" el error sumado con el mensaje "No esta esa Incidencia".
     public Incidencia buscarPorId(Long id){
         return incidenciaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Incidencia no encontrada"));
+                .orElseThrow(() -> new RuntimeException("No esta esa incidencia."));
     }
 
+    //Este metodo permite guarda la incidencia.
     public Incidencia guardar(@NonNull Incidencia incidencia){
         incidencia.setFechaRegistro(LocalDate.now().toString());
         return incidenciaRepository.save(incidencia);
@@ -36,6 +37,7 @@ public class IncidenciaService {
         return incidenciaRepository.existsById(id);
     }
 
+    //Este metodo actualiza la incidencia que buscamos por su ID.
     public Incidencia actualizar(Long id, Incidencia nuevaIncidencia){
         Incidencia incidenciaExistente = buscarPorId(id);
 
@@ -53,6 +55,7 @@ public class IncidenciaService {
         return null;
     }
 
+    //Eliminamos la Incidencia buscada por su ID.
     public void eliminarPorId(Long id){
         incidenciaRepository.deleteById(id);
     }

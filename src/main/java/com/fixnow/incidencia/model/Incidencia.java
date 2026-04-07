@@ -31,7 +31,7 @@ public class Incidencia {
     @NotBlank
     private String usuarioReportante;
 
-    private String fechaRegistro;//Borre el NotBlank por que se genera automaticamente el registro de la fecha en IncidenciaService.
+    private String fechaRegistro;//No use aca el NotBlank por que se genera automaticamente el registro de la fecha en IncidenciaService.
 
     //Constructor vacio
     public Incidencia() {
