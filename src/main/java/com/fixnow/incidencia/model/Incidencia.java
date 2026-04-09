@@ -13,7 +13,7 @@ public class Incidencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank// es para no no quede en blanco el atributo
+    @NotBlank// Es para no no quede en blanco el atributo
     private String titulo;
 
     @NotBlank

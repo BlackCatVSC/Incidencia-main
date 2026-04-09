@@ -12,27 +12,30 @@ import java.time.LocalDate; //Para que genere automaticamente la fecha de regist
 public class IncidenciaService {
     private final IncidenciaRepository incidenciaRepository;
 
+    //Constructor del servicio.
+    //Permite "inyectar" el repositorio de incidencias para entrar a los datos.
     public  IncidenciaService(IncidenciaRepository incidenciaRepository){
         this.incidenciaRepository = incidenciaRepository;
     }
 
+    //Obtiene todas las incidencias registradas en el sistemas.
     public List<Incidencia>listar(){
         return incidenciaRepository.findAll();
     }
 
-    //Este metodo Busca la incidencia por id.
-    //Si existe, la va a devolver, si no va a lanzar "supuestamente" el error sumado con el mensaje "No esta esa Incidencia".
+    //Busca la incidencia por id
     public Incidencia buscarPorId(Long id){
-        return incidenciaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No esta esa incidencia."));
+        return incidenciaRepository.findById(id).orElse(null);
     }
 
-    //Este metodo permite guarda la incidencia.
+    //Guarda una nueva incidencia en la base de datos.
+    //y asigna automaticamente la fecha de registro.
     public Incidencia guardar(@NonNull Incidencia incidencia){
         incidencia.setFechaRegistro(LocalDate.now().toString());
         return incidenciaRepository.save(incidencia);
     }
 
+    //Verifica si existe una incidencia con el Id especificado.
     public boolean existePorId(Long id){
         return incidenciaRepository.existsById(id);
     }
@@ -67,7 +70,7 @@ public class IncidenciaService {
         incidenciaRepository.deleteById(id);
     }
 
-    //Creamos "buscarPorEstado" para listar las incidencias por estado, por ejemplo: abiertas, en proceso o cerradas.
+    //Obtiene una lista de incidencias filtradas por estado.
     public List<Incidencia> buscarPorEstado(String estado){
         return incidenciaRepository.findByEstado(estado);
     }
